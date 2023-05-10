@@ -36,12 +36,10 @@ export const useFilmsStore = defineStore("buy", () => {
         await request('DELETE', `${baseUrl}/${id}`);
         films.value = films.value.filter(v => v.id !== id);
     }
-
     async function getProgrammazione(id) {
         await getById(id);
         progrs.value = await await request('GET', `${baseUrl}/${id}/programmazioni`);
     }
-
     async function createProgrammazione(id) {
         progr.value = request('POST', `${baseUrl}/${id}/programmazioni`, progr.value);
         progr.value = {};

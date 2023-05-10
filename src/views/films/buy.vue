@@ -21,7 +21,10 @@ let title = 'Buy TKT';
 
 const { film } = storeToRefs(store);
 const started = ref(false);
+
 const selectedSeats = ref([]);
+const numRows = 5;
+const numCols = 10;
 
 store.$reset();
 
@@ -44,7 +47,6 @@ function onSave() {
 
 function onSave() {
     started.value = true;
-
     if (selectedSeats.value.length > 0) {
         const seatsSelected = selectedSeats.join(", "); // Esempio: trasformare l'array di posti selezionati in una stringa separata da virgola
         // Azione di conferma prenotazione
@@ -74,7 +76,43 @@ function selectSeat(seat) {
         selectedSeats.value.push(seat);
     }
 }
+
+function createSeat(id, row, col, state) {
+    return { id, row, col, state };
+}
+
+const seats = [];
+for (let row = 1; row <= numRows; row++) {
+    for (let col = 1; col <= numCols; col++) {
+        const id = `${row}-${col}`;
+        const state = 'available';
+        seats.push(createSeat(id, row, col, state));
+    }
+}
 </script>
+
+<style>
+.available {
+    background-color: green;
+}
+.selected {
+    background-color: yellow;
+}
+.unavailable {
+    background-color: red;
+}
+.seat {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+</style>
 
 <template>
     <p class="title has-text-centered">buy tkts for {{ title }}</p>
