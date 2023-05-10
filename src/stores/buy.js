@@ -50,5 +50,6 @@ export const useFilmsStore = defineStore("buy", () => {
     async function createProiezione(sala) {
 
     }
+
     return { films, film, progrs, progr, $reset, create, getAll, getById, update, remove, getProgrammazione, createProgrammazione };
 });
